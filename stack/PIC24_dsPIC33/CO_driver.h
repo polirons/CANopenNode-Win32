@@ -55,12 +55,12 @@
 #if defined(__dsPIC33F__) || defined(__PIC24H__)
 #include <p33Fxxxx.h>       /* processor header file */
 #elif defined(__dsPIC33E__) || defined(__PIC24E__)
-#include <p33Exxxx.h>       /* processor header file */
+//#include <p33Exxxx.h>       /* processor header file */
 #endif
 #include <stddef.h>         /* for 'NULL' */
 #include <stdint.h>         /* for 'int8_t' to 'uint64_t' */
 #include <stdbool.h>        /* for 'true' and 'false' */
-
+#include <xc.h>
 
 /* CAN message buffer sizes for CAN module 1 and 2. Valid values
  * are 0, 4, 6, 8, 12, 16. Default is one TX and seven RX messages (FIFO). */
