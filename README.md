@@ -36,19 +36,11 @@ are interested in and access it via a pointer to that structure, see console
 example. Exporting a struct from a DLL in any other way than using a function to
 get a pointer seems somewhat messy.
 
-On this version Can bit rate is fixed at 500k (see line 55 in CanUSB.c) 
-S6 = 500k, The open function really needs bitrate paramaters
+Currently it only supports the Lawicel CanUSB device. Other drivers can be added
+using a very simple api that is very similar to CanFestivals driver model
 
-Currently it only supports the Lawicel CanUSB device. In an ideal world with an 
-infinite amount of time I would seperate out the hardware specific bit from 
-CanOpenNode-CanUsb and have that as a seperate DLL that could be loaded on
-demand (Similar to CanFestival). The file CanUsb.c is pretty much just the hw
-specific bits so its not far off abstrated out. When i get some more time I
-will look at this then other drivers could be used. But as i have no other HW
-its a low priority. I really like what CanFestival has done, I did consider
-using an identical driver model but my exisitng read routine is thread based and
-sends when it has data, where as the can festival one polls 
-CANRECEIVE_DRIVER_PROC() to see if data is avaiable so its not a 100% match.
+Drivers, port and bitrate are specified when calling initCanOpenNodeStack eg 
+initCanOpenNodeStack("Canusb.dll","\\\\.\\COM3", "500k");
 
 I've made no changes to the CanOpen stack, that compiled fine without
 modification. I have used the sample CO_driver.c and made the minimum
