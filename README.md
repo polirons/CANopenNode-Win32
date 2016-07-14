@@ -20,6 +20,13 @@ It supports the following features :-
 
 Some notes
 
+The code is a prototype that i 1) wanted to save in git before i lost things and
+2) get out there in case its useful or anyone can contribute backs. it may be about
+bit rough around the edges, and a bit squishy in the middle.
+
+There are no actual changes to CanOpenNode the win32 projects and folders drop
+in over the top of the existing code. So could be combined with no side effects
+
 It will fail to build if CO_NO_NMT_MASTER is not set to 1 in the CO_OD.h as the 
 NMT functions don't check this
 
@@ -49,6 +56,7 @@ modifications to get it to hook up to the CanUSB.c.
 (Basicly about 3 lines of change). The libcanopennode.c file is also based on
 the PIC32 main sample and also hardly changed apart from a few hardware specific
 things.
+
 
 
 
