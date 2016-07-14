@@ -1,28 +1,79 @@
 #include "stdafx.h"
 #include <stdio.h>
 #include <stdbool.h>
-#include "CANopen.h"
+
+#include "CanDriver.h"
+
+//#include "CANopen.h"
 
 HANDLE hComm;
 HANDLE hreadThread;
 BOOL threadrun;
 DWORD WINAPI read_thread(LPVOID lpParam);
-
 BOOL WriteSerialBuffer(char * lpBuf, DWORD dwToWrite);
-BOOL WriteCanPacket(CO_CANrxMsg_t * TxPacket);
+BOOL WriteCanPacket(s_Message * TxPacket);
+void close_port();
+
+//BOOL WriteCanPacket(CO_CANrxMsg_t * TxPacket);
+
+s_Message canpacket;
+
+CANRECEIVE_DRIVER_PROC rxcallback;
 
 #define READ_BUF_SIZE	  20
 char lpBuf[READ_BUF_SIZE];
 
-CO_CANrxMsg_t canpacket;
 
-int open_port(int port)
+CANSEND_DRIVER_PROC can_driver_send(void* inst, const s_Message *m)
 {
-	char portstr[20];
-	
-	sprintf_s(portstr, 20, "\\\\.\\COM%d", port);
+	WriteCanPacket(m);
+}
 
-	hComm = CreateFileA(portstr,
+CANOPEN_DRIVER_PROC can_driver_open(s_BOARD *board)
+{
+	drv_open_port(board->busname,board->baudrate);
+}
+
+CANCLOSE_DRIVER_PROC can_driver_close(void* inst)
+{
+	drv_close_port();
+}
+
+CANCHANGEBAUDRATE_DRIVER_PROC can_driver_change_baudrate(void* fd, char* baud)
+{
+	if (strcmp(baud, "10k") == 0)
+		WriteSerialBuffer("C\rS0\rO\r", 7);
+	if (strcmp(baud, "20k") == 0)
+		WriteSerialBuffer("C\rS1\rO\r", 7);
+	if (strcmp(baud, "50k") == 0)
+		WriteSerialBuffer("C\rS2\rO\r", 7);
+	if (strcmp(baud, "100k") == 0)
+		WriteSerialBuffer("C\rS3\rO\r", 7);
+	if (strcmp(baud, "125k") == 0)
+		WriteSerialBuffer("C\rS4\rO\r", 7);
+	if (strcmp(baud, "250k") == 0)
+		WriteSerialBuffer("C\rS5\rO\r", 7);
+	if (strcmp(baud, "500k") == 0)
+		WriteSerialBuffer("C\rS6\rO\r", 7);
+	if (strcmp(baud, "800k") == 0)
+		WriteSerialBuffer("C\rS7\rO\r", 7);
+	if (strcmp(baud, "1000k") == 0)
+		WriteSerialBuffer("C\rS8\rO\r", 7);
+}
+
+CANREGRXCALLBACK can_driver_register_rx_callback(CANRECEIVE_DRIVER_PROC rxproc)
+{
+	rxcallback = rxproc;
+}
+
+
+int drv_open_port(char * bus,char * baud)
+{
+	//char portstr[20];
+	
+	//sprintf_s(portstr, 20, "\\\\.\\COM%d", port);
+
+	hComm = CreateFileA(bus,
 		GENERIC_READ | GENERIC_WRITE,
 		0,
 		0,
@@ -52,7 +103,24 @@ int open_port(int port)
 
 	threadrun = TRUE;
 
-	WriteSerialBuffer("C\rS6\rO\r", 7);
+	if (strcmp(baud, "10k") == 0)
+		WriteSerialBuffer("C\rS0\rO\r", 7);
+	if (strcmp(baud, "20k") == 0)
+		WriteSerialBuffer("C\rS1\rO\r", 7);
+	if (strcmp(baud, "50k") == 0)
+		WriteSerialBuffer("C\rS2\rO\r", 7);
+	if(strcmp(baud,"100k")==0)
+		WriteSerialBuffer("C\rS3\rO\r", 7);
+	if (strcmp(baud, "125k") == 0)
+		WriteSerialBuffer("C\rS4\rO\r", 7);
+	if (strcmp(baud, "250k") == 0)
+		WriteSerialBuffer("C\rS5\rO\r", 7);
+	if(strcmp(baud,"500k")==0)
+		WriteSerialBuffer("C\rS6\rO\r", 7);
+	if (strcmp(baud, "800k") == 0)
+		WriteSerialBuffer("C\rS7\rO\r", 7);
+	if (strcmp(baud, "1000k") == 0)
+		WriteSerialBuffer("C\rS8\rO\r", 7);
 
 	Sleep(100);
 
@@ -60,11 +128,10 @@ int open_port(int port)
 
 	hreadThread = CreateThread(NULL, 0, read_thread, NULL, 0, NULL);
 
-
 	return 0;
 }
 
-void close_port()
+void drv_close_port()
 {
 	threadrun = FALSE;
 }
@@ -72,7 +139,7 @@ void close_port()
 void HandleASuccessfulRead(char * lpBuf, DWORD dwRead)
 {
 
-	if (isringfull())
+	if (isringfull() ==TRUE)
 	{
 		OutputDebugStringA("Out of ring buffer space\n");
 	}
@@ -90,7 +157,7 @@ void HandleASuccessfulRead(char * lpBuf, DWORD dwRead)
 	int term = peekbufferfindterminator();
 	if (term > 0)
 	{
-		memset(&canpacket, 0, sizeof(CO_CANrxMsg_t));
+		memset(&canpacket, 0, sizeof(s_Message));
 		while (count < term - 1)
 		{
 			char c[2];
@@ -120,13 +187,14 @@ void HandleASuccessfulRead(char * lpBuf, DWORD dwRead)
 
 			if (count < 4)
 			{
-				canpacket.ident <<= 4;
-				canpacket.ident |= d;
+				
+				canpacket.cob_id <<= 4;
+				canpacket.cob_id |= d;
 			}
 			else 
 			if (count == 4)
 			{
-				canpacket.DLC = d;
+				canpacket.len = d;
 			}
 			else
 			{
@@ -141,9 +209,12 @@ void HandleASuccessfulRead(char * lpBuf, DWORD dwRead)
 		//dummy ready to clear trailing \r from ringbuffer
 		readbuffer();
 
-		CO_CAN_ISR(); //canpacket is loaded up with the data to process
+		//CO_CAN_ISR(); //canpacket is loaded up with the data to process
+		//Invoke the callback
 
-		OutputDebugStringA("\n");
+		rxcallback(NULL, &canpacket);
+
+		//OutputDebugStringA("\n");
 	}
 
 }
@@ -251,16 +322,17 @@ DWORD WINAPI read_thread(LPVOID lpParam)
 }
 
 
-BOOL WriteCanPacket(CO_CANrxMsg_t * TxPacket)
+BOOL WriteCanPacket(s_Message * TxPacket)
 {
 
-	int bcount = (TxPacket->ident >> 12);
+	//int bcount = (TxPacket->ident >> 12);
+	int bcount = (TxPacket->len);
 	int len = 5 + 2 * bcount;
 	char txbuf[23];
 	memset(txbuf, 0, 23);
 
 	int * data = (int*)&TxPacket->data;
-	sprintf_s(txbuf, 23, "t%03x%01x", 0x7FF & TxPacket->ident, bcount);
+	sprintf_s(txbuf, 23, "t%03x%01x", 0x7FF & TxPacket->cob_id, bcount);
 
 	for (int x = 0; x < bcount; x++)
 	{

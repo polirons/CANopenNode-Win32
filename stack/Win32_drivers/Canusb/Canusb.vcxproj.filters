@@ -21,25 +21,10 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="libCanOpenNode.h">
+    <ClInclude Include="Canusb.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Program.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CO_driver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="eeprom.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\example\CO_OD.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDO.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CanDriver.h">
+    <ClInclude Include="..\CanOpenNode-CanUsb\ringbuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -47,26 +32,16 @@
     <ClCompile Include="dllmain.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="libCanOpenNode.c">
+    <ClCompile Include="..\CanOpenNode-CanUsb\CanUSB.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Program.c">
+    <ClCompile Include="..\CanOpenNode-CanUsb\ringbuffer.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CO_driver.c">
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CanUsb.def">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="eeprom.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NMT.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SDO.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="driverloaded.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    </None>
   </ItemGroup>
 </Project>

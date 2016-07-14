@@ -33,7 +33,7 @@ int main()
 	fprintf(stdout, "Hello world");
 
 	registerCallback1ms(mscallback);
-	initCanOpenNodeStack(3);
+	initCanOpenNodeStack("Canusb.dll","\\\\.\\COM3", "500k");
 
 	CO_OD_RAMp = (sCO_OD_RAM * ) getODRAM();
 

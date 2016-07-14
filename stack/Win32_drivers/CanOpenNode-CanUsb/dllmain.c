@@ -8,16 +8,6 @@
 DWORD WINAPI CanOpen_run(LPVOID lpParam);
 extern CO_NMT_reset_cmd_t reset;
 HANDLE thread;
-int open_port(int port);
-
-extern BOOL threadrun;
-
-CANRECEIVE_DRIVER_PROC m_canReceive;
-CANSEND_DRIVER_PROC m_canSend;
-CANOPEN_DRIVER_PROC m_canOpen;
-CANCLOSE_DRIVER_PROC m_canClose;
-CANCHANGEBAUDRATE_DRIVER_PROC m_canChangeBaudRate;
-
 
 BOOL APIENTRY DllMain( HMODULE hModule,
                        DWORD  ul_reason_for_call,
@@ -40,16 +30,18 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 }
 
 
-CANOPENNODECANUSB_API int initCanOpenNodeStack(int port)
+CANOPENNODECANUSB_API int initCanOpenNodeStack(char * driver,char * bus,char * baud)
 {
 
-	if (open_port(port) == -1)
+	LoadCanDriver(driver);
+
+	if (open_port(bus,baud) == -1)
 	{
 		return;
 	}
 
 	thread = CreateThread(NULL, 0, CanOpen_run, NULL, 0, NULL);
-
+	
 	return 0;
 }
 
@@ -97,5 +89,5 @@ CANOPENNODECANUSB_API void registerCallbackprogramEnd(timercallback fnptr)
 
 CANOPENNODECANUSB_API int closeCanOpenNodeStack(void)
 {
-	closeall();
+	//closeall();
 }

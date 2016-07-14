@@ -16,7 +16,7 @@
 
 // Main stack commands
 
-CANOPENNODECANUSB_API int __stdcall initCanOpenNodeStack(int port);
+CANOPENNODECANUSB_API int __stdcall initCanOpenNodeStack(char * driver,char * bus, char * baud);
 CANOPENNODECANUSB_API int __stdcall closeCanOpenNodeStack(void);
 
 //Callbacks 

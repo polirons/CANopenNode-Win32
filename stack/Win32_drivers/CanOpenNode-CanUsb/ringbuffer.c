@@ -9,8 +9,6 @@
 #define CUR_BUF_SIZE	500
 
 
-
-
 char cirbuffer[CUR_BUF_SIZE];
 char * readptr;
 char * writeptr;
