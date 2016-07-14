@@ -1,3 +1,57 @@
+CANopenNode with win32 support
+==============================
+
+This is a fork of the CanopenNode project with support for 
+win32/visual studio
+
+It supports the following features :-
+
+* Builds the CanOpen library as a static .lib file that can be linked 
+  in to an application
+* Builds a driver.dll that uses the above library, the object dictionary 
+  and some driver code to talk to a Lawicel CanUsb device
+* Fully async/threaded operation
+* Provides call backs for program start,program stop, async and 1ms events
+* Shows a sample console projet that opens the CanUsb on a fixed com port
+  and allows NMT/SDO commands to be executed. Direct Read/Write to OD is
+  also possible 
+* Provides an overall solution that can be loaded into visual studio.
+
+
+Some notes
+
+It will fail to build if CO_NO_NMT_MASTER is not set to 1 in the CO_OD.h as the 
+NMT functions don't check this
+
+Access to the OD is not ideal, the nice wrappers in CO_OD.h will not work in the 
+final app as you need to get a pointer to the OD structure (ROM/RAM) that you 
+are interested in and access it via a pointer to that structure, see console 
+example. Exporting a struct from a DLL in any other way than using a function to
+get a pointer seems somewhat messy.
+
+On this version Can bit rate is fixed at 500k (see line 55 in CanUSB.c) 
+S6 = 500k, The open function really needs bitrate paramaters
+
+Currently it only supports the Lawicel CanUSB device. In an ideal world with an 
+infinite amount of time I would seperate out the hardware specific bit from 
+CanOpenNode-CanUsb and have that as a seperate DLL that could be loaded on
+demand (Similar to CanFestival). The file CanUsb.c is pretty much just the hw
+specific bits so its not far off abstrated out. When i get some more time I
+will look at this then other drivers could be used. But as i have no other HW
+its a low priority. I really like what CanFestival has done, I did consider
+using an identical driver model but my exisitng read routine is thread based and
+sends when it has data, where as the can festival one polls 
+CANRECEIVE_DRIVER_PROC() to see if data is avaiable so its not a 100% match.
+
+I've made no changes to the CanOpen stack, that compiled fine without
+modification. I have used the sample CO_driver.c and made the minimum
+modifications to get it to hook up to the CanUSB.c. 
+(Basicly about 3 lines of change). The libcanopennode.c file is also based on
+the PIC32 main sample and also hardly changed apart from a few hardware specific
+things.
+
+
+
 CANopenNode
 ===========
 
