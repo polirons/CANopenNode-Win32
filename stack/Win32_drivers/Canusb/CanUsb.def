@@ -1,0 +1,9 @@
+LIBRARY CANUSB
+EXPORTS
+   can_driver_send   @1
+   can_driver_open   @2
+   can_driver_close  @3
+   can_driver_change_baudrate @4
+   can_driver_register_rx_callback @5
+
+

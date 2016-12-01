@@ -1,3 +1,57 @@
+CANopenNode with win32 support
+==============================
+
+This is a fork of the CanopenNode project with support for 
+win32/visual studio
+
+It supports the following features :-
+
+* Builds the CanOpen library as a static .lib file that can be linked 
+  in to an application
+* Builds a driver.dll that uses the above library, the object dictionary 
+  and some driver code to talk to a Lawicel CanUsb device
+* Fully async/threaded operation
+* Provides call backs for program start,program stop, async and 1ms events
+* Shows a sample console projet that opens the CanUsb on a fixed com port
+  and allows NMT/SDO commands to be executed. Direct Read/Write to OD is
+  also possible 
+* Provides an overall solution that can be loaded into visual studio.
+
+
+Some notes
+
+The code is a prototype that i 1) wanted to save in git before i lost things and
+2) get out there in case its useful or anyone can contribute backs. it may be about
+bit rough around the edges, and a bit squishy in the middle.
+
+There are no actual changes to CanOpenNode the win32 projects and folders drop
+in over the top of the existing code. So could be combined with no side effects
+
+It will fail to build if CO_NO_NMT_MASTER is not set to 1 in the CO_OD.h as the 
+NMT functions don't check this
+
+Access to the OD is not ideal, the nice wrappers in CO_OD.h will not work in the 
+final app as you need to get a pointer to the OD structure (ROM/RAM) that you 
+are interested in and access it via a pointer to that structure, see console 
+example. Exporting a struct from a DLL in any other way than using a function to
+get a pointer seems somewhat messy.
+
+Currently it only supports the Lawicel CanUSB device. Other drivers can be added
+using a very simple api that is very similar to CanFestivals driver model
+
+Drivers, port and bitrate are specified when calling initCanOpenNodeStack eg 
+initCanOpenNodeStack("Canusb.dll","\\\\.\\COM3", "500k");
+
+I've made no changes to the CanOpen stack, that compiled fine without
+modification. I have used the sample CO_driver.c and made the minimum
+modifications to get it to hook up to the CanUSB.c. 
+(Basicly about 3 lines of change). The libcanopennode.c file is also based on
+the PIC32 main sample and also hardly changed apart from a few hardware specific
+things.
+
+
+
+
 CANopenNode
 ===========
 

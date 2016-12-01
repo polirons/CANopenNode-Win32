@@ -274,6 +274,7 @@ typedef struct{
     uint8_t             bufFull;        /**< True if above buffer is full */
     uint8_t             wrongErrorReport;/**< Error in arguments to CO_errorReport() */
     void              (*pFunctSignal)(void);/**< From CO_EM_initCallback() or NULL */
+    void              (*pErrorCallback)(uint8_t bit,uint16_t  code,uint32_t info,uint16_t node);
 }CO_EM_t;
 
 
