@@ -122,6 +122,7 @@ File structure
    - **CO_SDO.h/.c** - CANopen SDO server object. It serves data from Object dictionary.
    - **CO_PDO.h/.c** - CANopen PDO object. It configures, receives and transmits CANopen process data.
    - **CO_SDOmaster.h/.c** - CANopen SDO client object (master functionality).
+   - **CO_trace.h/.c** - Trace object with timestamp for monitoring variables from Object Dictionary (optional).
    - **crc16-ccitt.h/.c** - CRC calculation object.
    - **drvTemplate** - Directory with microcontroller specific files. In this
      case it is template for new implementations. It is also documented, other
@@ -162,7 +163,7 @@ Microcontroller support
 |                     | Status (date) | OD storage | Example |
 |---------------------|:-------------:|:----------:|---------|
 | drvTemplate         | OK            | template   | [here](https://github.com/CANopenNode/CANopenNode) |
-| Linux socketCAN     | stable (2015) | Yes        | [CANopenSocket](https://github.com/CANopenNode/CANopenSocket) |
+| Linux socketCAN     | beta   (2016) | Yes        | [CANopenSocket](https://github.com/CANopenNode/CANopenSocket) |
 | Microchip PIC32     | stable (2015) | Yes        | [CANopenPIC](https://github.com/CANopenNode/CANopenPIC) |
 | Microchip PIC24, 33 | stable (2015) | no         | [CANopenPIC](https://github.com/CANopenNode/CANopenPIC) |
 | Microchip dsPIC30F  | beta   (2013) | no         | [CANopenPIC](https://github.com/CANopenNode/CANopenPIC) |
