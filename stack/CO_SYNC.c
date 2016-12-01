@@ -49,6 +49,7 @@
 #include "CO_Emergency.h"
 #include "CO_NMT_Heartbeat.h"
 #include "CO_SYNC.h"
+#include "canopen.h"
 
 /*
  * Read received message from CAN module.
@@ -57,12 +58,28 @@
  * message with correct identifier will be received. For more information and
  * description of parameters see file CO_driver.h.
  */
+
+extern CO_t *CO;
+
 static void CO_SYNC_receive(void *object, const CO_CANrxMsg_t *msg){
     CO_SYNC_t *SYNC;
     uint8_t operState;
 
     SYNC = (CO_SYNC_t*)object;   /* this is the correct pointer type of the first argument */
     operState = *SYNC->operatingState;
+    
+    if(msg->ident>0x80)
+    {
+       uint16_t errorCode = (uint16_t)msg->data[0] | ((uint16_t)msg->data[1]<<8);
+       uint8_t errorBit = msg->data[3];
+       uint32_t infoCode = (((uint32_t)msg->data[4]) | ((uint32_t)msg->data[5]<<8) | ((uint32_t)msg->data[6]<<16) | (((uint32_t)msg->data[7])<<24));
+               
+       if(CO->em->pErrorCallback != NULL) {
+            CO->em->pErrorCallback(errorBit,errorCode,infoCode,msg->ident & 0x07f);
+        }
+        
+        return;
+    }
 
     if((operState == CO_NMT_OPERATIONAL) || (operState == CO_NMT_PRE_OPERATIONAL)){
         if(SYNC->counterOverflowValue == 0){
@@ -150,7 +167,7 @@ static CO_SDO_abortCode_t CO_ODF_1005(CO_ODF_arg_t *ODF_arg){
                     SYNC->CANdevRx,         /* CAN device */
                     SYNC->CANdevRxIdx,      /* rx buffer index */
                     SYNC->COB_ID,           /* CAN identifier */
-                    0x7FF,                  /* mask */
+                    0x700,                  /* mask */
                     0,                      /* rtr */
                     (void*)SYNC,            /* object passed to receive function */
                     CO_SYNC_receive);       /* this function will process received message */
@@ -291,7 +308,7 @@ CO_ReturnError_t CO_SYNC_init(
             CANdevRx,               /* CAN device */
             CANdevRxIdx,            /* rx buffer index */
             SYNC->COB_ID,           /* CAN identifier */
-            0x7FF,                  /* mask */
+            0x700,                  /* mask */
             0,                      /* rtr */
             (void*)SYNC,            /* object passed to receive function */
             CO_SYNC_receive);       /* this function will process received message */

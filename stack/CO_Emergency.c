@@ -195,7 +195,7 @@ void CO_EM_initCallback(
 /******************************************************************************/
 void CO_EM_initNotifyCallback(
         CO_EM_t                *em,
-        void                  (*pErrorCallback)(uint8_t bit,uint16_t  code,uint32_t info,uint16_t node))
+        void                  (*pErrorCallback)( uint8_t bit,uint16_t  code,uint32_t info,uint16_t node))
 {
     if(em != NULL){
         em->pErrorCallback = pErrorCallback;
@@ -315,7 +315,7 @@ void CO_errorReport(CO_EM_t *em, const uint8_t errorBit, const uint16_t errorCod
     if(sendEmergency){
         
         if(em->pErrorCallback != NULL) {
-            em->pErrorCallback(errorBit,errorCode,infoCode,0);
+            em->pErrorCallback(errorBit,errorCode,infoCode,OD_CANNodeID);
         }
         
         /* set error bit */
