@@ -1,90 +1,23 @@
 #include "stdafx.h"
 #include <stdio.h>
 #include <stdbool.h>
-
-#include "CanDriver.h"
-
-//#include "CANopen.h"
+#include "CANopen.h"
 
 HANDLE hComm;
 HANDLE hreadThread;
 BOOL threadrun;
 DWORD WINAPI read_thread(LPVOID lpParam);
+
 BOOL WriteSerialBuffer(char * lpBuf, DWORD dwToWrite);
-BOOL WriteCanPacket(s_Message * TxPacket);
-void close_port();
+BOOL WriteCanPacket(CO_CANrxMsg_t * TxPacket);
 
-//BOOL WriteCanPacket(CO_CANrxMsg_t * TxPacket);
-
-s_Message canpacket;
-
-CANRECEIVE_DRIVER_PROC rxcallback;
-
-#define READ_BUF_SIZE	  20
-char lpBuf[READ_BUF_SIZE];
-
-
-CANSEND_DRIVER_PROC can_driver_send(void* inst, const s_Message *m)
+int open_port(int port)
 {
-	WriteCanPacket(m);
-}
+	char portstr[20];
+	
+	sprintf_s(portstr, 20, "\\\\.\\COM%d", port);
 
-CANOPEN_DRIVER_PROC can_driver_open(s_BOARD *board)
-{
-	drv_open_port(board->busname,board->baudrate);
-}
-
-CANCLOSE_DRIVER_PROC can_driver_close(void* inst)
-{
-	drv_close_port();
-}
-
-CANCHANGEBAUDRATE_DRIVER_PROC can_driver_change_baudrate(void* fd, char* baud)
-{
-	if (strcmp(baud, "10k") == 0)
-		WriteSerialBuffer("C\rS0\rO\r", 7);
-	if (strcmp(baud, "20k") == 0)
-		WriteSerialBuffer("C\rS1\rO\r", 7);
-	if (strcmp(baud, "50k") == 0)
-		WriteSerialBuffer("C\rS2\rO\r", 7);
-	if (strcmp(baud, "100k") == 0)
-		WriteSerialBuffer("C\rS3\rO\r", 7);
-	if (strcmp(baud, "125k") == 0)
-		WriteSerialBuffer("C\rS4\rO\r", 7);
-	if (strcmp(baud, "250k") == 0)
-		WriteSerialBuffer("C\rS5\rO\r", 7);
-	if (strcmp(baud, "500k") == 0)
-		WriteSerialBuffer("C\rS6\rO\r", 7);
-	if (strcmp(baud, "800k") == 0)
-		WriteSerialBuffer("C\rS7\rO\r", 7);
-	if (strcmp(baud, "1000k") == 0)
-		WriteSerialBuffer("C\rS8\rO\r", 7);
-}
-
-CANREGRXCALLBACK can_driver_register_rx_callback(CANRECEIVE_DRIVER_PROC rxproc)
-{
-	rxcallback = rxproc;
-}
-
-
-CANGETFILTERS_DRIVER_PROC can_driver_get_filters()
-{
-	return 0; //technically 4 but i'm not 100% sure of setting up the SJA1000
-}
-
-CANSETFILTER_DRIVER_PROC can_driver_set_filter(uint32_t ident, uint32_t mask)
-{
-	/*
-	set filter 2 to only receive all 11bit ID’s from 0x300 to 0x3FF
-	M00006000[CR] AC0=0x00, AC1=0x00, AC2=0x60 & AC3=0x00
-	m00001FF0[CR] AM0=0x00, AM1=0x00, AM2=0x1F & AM3=0xF0
-	*/
-}
-
-int drv_open_port(char * bus,char * baud)
-{
-
-	hComm = CreateFileA(bus,
+	hComm = CreateFileA(port,
 		GENERIC_READ | GENERIC_WRITE,
 		0,
 		0,
@@ -94,8 +27,10 @@ int drv_open_port(char * bus,char * baud)
 
 	if (hComm == INVALID_HANDLE_VALUE)
 	{
-		fprintf(stderr,"Error opening com port");
+		OutputDebugStringA("Error opening com port");
 		return -1;
+
+		// error opening port; abort
 	}
 
 	DCB dcb;
@@ -112,24 +47,7 @@ int drv_open_port(char * bus,char * baud)
 
 	threadrun = TRUE;
 
-	if (strcmp(baud, "10k") == 0)
-		WriteSerialBuffer("C\rS0\rO\r", 7);
-	if (strcmp(baud, "20k") == 0)
-		WriteSerialBuffer("C\rS1\rO\r", 7);
-	if (strcmp(baud, "50k") == 0)
-		WriteSerialBuffer("C\rS2\rO\r", 7);
-	if(strcmp(baud,"100k")==0)
-		WriteSerialBuffer("C\rS3\rO\r", 7);
-	if (strcmp(baud, "125k") == 0)
-		WriteSerialBuffer("C\rS4\rO\r", 7);
-	if (strcmp(baud, "250k") == 0)
-		WriteSerialBuffer("C\rS5\rO\r", 7);
-	if(strcmp(baud,"500k")==0)
-		WriteSerialBuffer("C\rS6\rO\r", 7);
-	if (strcmp(baud, "800k") == 0)
-		WriteSerialBuffer("C\rS7\rO\r", 7);
-	if (strcmp(baud, "1000k") == 0)
-		WriteSerialBuffer("C\rS8\rO\r", 7);
+	WriteSerialBuffer("C\rS6\rO\r", 7);
 
 	Sleep(100);
 
@@ -137,18 +55,104 @@ int drv_open_port(char * bus,char * baud)
 
 	hreadThread = CreateThread(NULL, 0, read_thread, NULL, 0, NULL);
 
+
 	return 0;
 }
 
-void drv_close_port()
+void close_port()
 {
 	threadrun = FALSE;
+}
+
+#define READ_TIMEOUT      500      // milliseconds
+#define READ_BUF_SIZE	  20
+#define CUR_BUF_SIZE	500
+
+
+char lpBuf[READ_BUF_SIZE];
+
+char cirbuffer[CUR_BUF_SIZE];
+char * readptr;
+char * writeptr;
+char * bufend;
+char * bufstart;
+
+bool bufffull;
+
+#define MAX_PACKET_SIZE 25
+
+CO_CANrxMsg_t canpacket;
+
+int getfreebufferspace()
+{
+	if (readptr == writeptr)
+		return CUR_BUF_SIZE;
+
+	if (writeptr > readptr) //write ptr is ahead of read in a normal way
+		return writeptr - readptr;
+	else // writeptr has wrapped around the queue and is approaching read from the rear
+		return readptr - writeptr;
+}
+
+void writebuffer(char * byte)
+{
+	*writeptr = byte;
+
+	writeptr += 1;
+
+	if (writeptr == bufend)
+		writeptr = bufstart;
+
+	if (writeptr == readptr)
+		bufffull = TRUE;
+	else
+		bufffull = FALSE;
+
+}
+
+char readbuffer()
+{
+	char ret = *readptr;
+
+	readptr += 1;
+
+	if (readptr == bufend)
+		readptr = bufstart;
+
+	bufffull = FALSE;
+	
+	return ret;
+
+}
+
+int peekbufferfindterminator()
+{
+	char * tempbuf;
+	int count = 1;
+
+	tempbuf = readptr;
+
+	while (tempbuf != writeptr)
+	{
+		
+		if (tempbuf == bufend)
+			tempbuf = bufstart;
+
+		if (*tempbuf == '\r')
+			return count;
+
+		count++;
+		tempbuf++;
+	}
+
+	return 0;
+
 }
 
 void HandleASuccessfulRead(char * lpBuf, DWORD dwRead)
 {
 
-	if (isringfull() ==TRUE)
+	if (bufffull)
 	{
 		OutputDebugStringA("Out of ring buffer space\n");
 	}
@@ -166,7 +170,7 @@ void HandleASuccessfulRead(char * lpBuf, DWORD dwRead)
 	int term = peekbufferfindterminator();
 	if (term > 0)
 	{
-		memset(&canpacket, 0, sizeof(s_Message));
+		memset(&canpacket, 0, sizeof(CO_CANrxMsg_t));
 		while (count < term - 1)
 		{
 			char c[2];
@@ -190,19 +194,19 @@ void HandleASuccessfulRead(char * lpBuf, DWORD dwRead)
 			if (c[0] >= 0x30 && c[0] <= 0x39)
 				d = c[0] - 0x30;
 			if (c[0] >= 0x61 && c[0] <= 0x66)
-				d = c[0] - 0x57;
+				d = c[0] - 0x61;
 			if (c[0] >= 0x41 && c[0] <= 0x46)
-				d = c[0] - 0x37;
+				d = c[0] - 0x41;
 
 			if (count < 4)
 			{
-				canpacket.cob_id <<= 4;
-				canpacket.cob_id |= d;
+				canpacket.ident <<= 4;
+				canpacket.ident |= d;
 			}
 			else 
 			if (count == 4)
 			{
-				canpacket.len = d;
+				canpacket.DLC = d;
 			}
 			else
 			{
@@ -217,18 +221,23 @@ void HandleASuccessfulRead(char * lpBuf, DWORD dwRead)
 		//dummy ready to clear trailing \r from ringbuffer
 		readbuffer();
 
-		rxcallback(NULL, &canpacket);
+		CO_CAN_ISR(); //canpacket is loaded up with the data to process
+
+		OutputDebugStringA("\n");
 	}
 
 }
 
-OVERLAPPED osReader = { 0 };
-
-
-
 DWORD WINAPI read_thread(LPVOID lpParam)
 {
-		init_ringbuffer();
+
+		OVERLAPPED osReader = { 0 };
+
+		bufend = &cirbuffer[0] + CUR_BUF_SIZE;
+		bufstart = &cirbuffer[0];
+
+		readptr = bufstart;
+		writeptr = bufstart;
 	
 		DWORD dwRead;
 		BOOL fWaitingOnRead = FALSE;
@@ -253,6 +262,16 @@ DWORD WINAPI read_thread(LPVOID lpParam)
 
 				COMSTAT comStat;
 				DWORD   dwErrors;
+
+				// Get and clear current errors on the port.
+				//if (!ClearCommError(hComm, &dwErrors, &comStat))
+				//{
+				//	// Report error in ClearCommError.
+				//	return FALSE;
+				//}
+
+				//if (comStat.cbInQue == 0)
+				//	continue;
 
 				// Issue read operation.
 				if (!ReadFile(hComm, lpBuf, 1 /*comStat.cbInQue < READ_BUF_SIZE ? comStat.cbInQue : READ_BUF_SIZE*/, &dwRead, &osReader))
@@ -290,7 +309,8 @@ DWORD WINAPI read_thread(LPVOID lpParam)
 					else
 					{
 						// Read completed successfully.
-						HandleASuccessfulRead(lpBuf, dwRead);			
+						HandleASuccessfulRead(lpBuf, dwRead);
+						
 					}
 
 					fWaitingOnRead = FALSE;
@@ -320,19 +340,20 @@ DWORD WINAPI read_thread(LPVOID lpParam)
 		}
 
 	return 0;
+
 }
 
 
-BOOL WriteCanPacket(s_Message * TxPacket)
+BOOL WriteCanPacket(CO_CANrxMsg_t * TxPacket)
 {
 
-	int bcount = (TxPacket->len);
+	int bcount = (TxPacket->ident >> 12);
 	int len = 5 + 2 * bcount;
 	char txbuf[23];
 	memset(txbuf, 0, 23);
 
 	int * data = (int*)&TxPacket->data;
-	sprintf_s(txbuf, 23, "t%03x%01x", 0x7FF & TxPacket->cob_id, bcount);
+	sprintf_s(txbuf, 23, "t%03x%01x", 0x7FF & TxPacket->ident, bcount);
 
 	for (int x = 0; x < bcount; x++)
 	{
@@ -402,12 +423,3 @@ BOOL WriteSerialBuffer(char * lpBuf, DWORD dwToWrite)
 		return fRes;
 	}
 
-void closeall()
-{	
-	threadrun = false;
-	CloseHandle(osReader.hEvent);
-	CloseHandle(hComm);
-
-	//should we wait here for single object?
-	CloseHandle(hreadThread);
-}

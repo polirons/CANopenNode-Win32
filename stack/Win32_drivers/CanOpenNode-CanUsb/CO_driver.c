@@ -50,8 +50,7 @@
 #include <string.h>
 #include <stdio.h>
 
-extern CO_CANrxMsg_t canpacket;
-uint8_t WriteCanPacket(CO_CANrxMsg_t * TxPacket);
+#include "InterfaceBoundary.h"
 
 /******************************************************************************/
 void CO_CANsetConfigurationMode(int32_t CANbaseAddress){
@@ -91,8 +90,7 @@ CO_ReturnError_t CO_CANmodule_init(
     CANmodule->txArray = txArray;
     CANmodule->txSize = txSize;
     CANmodule->CANnormal = false;
-    //CANmodule->useCANrxFilters = (rxSize <= 32U) ? true : false;/* microcontroller dependent */
-	CANmodule->useCANrxFilters = false; //win32 we need to ask the individual candriver if supports this
+	CANmodule->useCANrxFilters = rxSize <= getNoSupportedFilters() ? true : false;
     CANmodule->bufferInhibitFlag = false;
     CANmodule->firstCANtxMessage = true;
     CANmodule->CANtxCount = 0U;
@@ -176,7 +174,7 @@ CO_ReturnError_t CO_CANrxBufferInit(
 
         /* Set CAN hardware module filter and mask. */
         if(CANmodule->useCANrxFilters){
-
+			SetCanFilter(buffer->ident, buffer->mask);
         }
     }
     else{

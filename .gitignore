@@ -10,3 +10,11 @@ doc/
 
 Debug/
 Release/
+/CanOpenNode.VC.db
+/example/CO_OD/*.filters
+/ipch/CANOPENCONSOLETEST-e97e120e/*.ipch
+/libCanOpenNode/*.db
+/libCanOpenNode/.vs/libCanOpenNode/v14/*.suo
+/example/*.lnk
+/libCanOpenNode/ipch/CANOPENCONSOLETEST-8c180197/CANOPENCONSOLETEST-8408fea3.ipch
+/libCanOpenNode/libCanOpenNode/*.filters

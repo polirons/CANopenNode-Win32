@@ -5,5 +5,7 @@ EXPORTS
    can_driver_close  @3
    can_driver_change_baudrate @4
    can_driver_register_rx_callback @5
+   can_driver_get_filters @6
+   can_driver_set_filter @7
 
 

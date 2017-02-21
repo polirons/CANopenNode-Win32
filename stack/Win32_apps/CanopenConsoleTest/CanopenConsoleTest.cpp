@@ -25,12 +25,11 @@ void __stdcall SDOErrorCallback(uint32_t abortcode)
 
 void  __stdcall SDOFinishedCallback(void)
 {
-	fprintf(stdout, "SDO finished");
+	fprintf(stdout, "SDO finished\n");
 }
 
 int main()
 {
-	fprintf(stdout, "Hello world");
 
 	registerCallback1ms(mscallback);
 	initCanOpenNodeStack("Canusb.dll","\\\\.\\COM3", "500k");
@@ -41,12 +40,12 @@ int main()
 
 	Sleep(2000);
 
-	printf("Resetting communications...");
+	printf("Resetting communications...\n");
 	NMT_BusResetCommunications();
 
 	Sleep(2000);
 
-	printf("NMT Operational...");
+	printf("NMT Operational...\n");
 	NMT_BusOperational();
 
 	Sleep(2000);
@@ -67,6 +66,9 @@ int main()
 
 	while (!SDOIsIdle())
 		Sleep(1);
+
+	uint32_t hb = 1000;
+	SDOMasterWrite(2, 0x1017, 0, (uint8_t*)&hb, 2, SDOFinishedCallback, SDOErrorCallback);
 
 	float val = 0;
 

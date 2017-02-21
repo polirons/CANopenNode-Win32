@@ -160,6 +160,7 @@
     <ClInclude Include="CanDriver.h" />
     <ClInclude Include="CO_driver.h" />
     <ClInclude Include="eeprom.h" />
+    <ClInclude Include="InterfaceBoundary.h" />
     <ClInclude Include="libCanOpenNode.h" />
     <ClInclude Include="Program.h" />
     <ClInclude Include="SDO.h" />

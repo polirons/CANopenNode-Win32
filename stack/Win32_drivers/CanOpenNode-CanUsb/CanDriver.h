@@ -17,7 +17,7 @@ struct struct_s_BOARD {
 * @brief The CAN message structure
 * @ingroup can
 */
-typedef struct struct_s_Message {
+struct struct_s_Message {
 	uint16_t cob_id;	/**< message's ID */
 	uint8_t rtr;		/**< remote transmission request. (0 if not rtr message, 1 if rtr message) */
 	uint8_t len;		/**< message's length (0 to 8) */
@@ -33,6 +33,8 @@ typedef uint8_t(CALLBACK* CANSEND_DRIVER_PROC)(void* inst, const s_Message *m);
 typedef void* (CALLBACK* CANOPEN_DRIVER_PROC)(s_BOARD *board);
 typedef int (CALLBACK* CANCLOSE_DRIVER_PROC)(void* inst);
 typedef uint8_t(CALLBACK* CANCHANGEBAUDRATE_DRIVER_PROC)(void* fd, char* baud);
+typedef uint16_t (CALLBACK* CANGETFILTERS_DRIVER_PROC)();
+typedef void (CALLBACK* CANSETFILTER_DRIVER_PROC)(uint32_t ident, uint32_t mask);
 
 typedef void (CALLBACK * CANREGRXCALLBACK)(CANRECEIVE_DRIVER_PROC rxproc);
 

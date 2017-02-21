@@ -44,6 +44,9 @@
     <ClCompile Include="..\..\example\CO_OD.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\CO_NMTmaster.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\CO_Emergency.h">
@@ -77,6 +80,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\example\CO_OD.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CO_NMT_Master.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
