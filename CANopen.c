@@ -611,7 +611,8 @@ CO_NMT_reset_cmd_t CO_process(
 
     ms50 += timeDifference_ms;
     if(ms50 >= 50){
-        ms50 -= 50;
+        //ms50 -= 50;
+        ms50=0;
         CO_NMT_blinkingProcess50ms(CO->NMT);
     }
     if(timerNext_ms != NULL){

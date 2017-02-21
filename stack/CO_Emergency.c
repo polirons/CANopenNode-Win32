@@ -47,7 +47,7 @@
 #include "CO_driver.h"
 #include "CO_SDO.h"
 #include "CO_Emergency.h"
-
+#include "CO_OD.h"
 
 /*
  * Function for accessing _Pre-Defined Error Field_ (index 0x1003) from SDO server.
@@ -150,6 +150,7 @@ CO_ReturnError_t CO_EM_init(
     em->bufFull                 = 0U;
     em->wrongErrorReport        = 0U;
     em->pFunctSignal            = NULL;
+    em->pErrorCallback          = NULL;
     emPr->em                    = em;
     emPr->errorRegister         = errorRegister;
     emPr->preDefErr             = preDefErr;
@@ -191,6 +192,15 @@ void CO_EM_initCallback(
     }
 }
 
+/******************************************************************************/
+void CO_EM_initNotifyCallback(
+        CO_EM_t                *em,
+        void                  (*pErrorCallback)( uint8_t bit,uint16_t  code,uint32_t info,uint16_t node))
+{
+    if(em != NULL){
+        em->pErrorCallback = pErrorCallback;
+    }
+}
 
 /******************************************************************************/
 void CO_EM_process(
@@ -272,6 +282,7 @@ void CO_EM_process(
 
         /* send CAN message */
         CO_CANsend(emPr->CANdev, emPr->CANtxBuff);
+       
     }
 
     return;
@@ -302,6 +313,11 @@ void CO_errorReport(CO_EM_t *em, const uint8_t errorBit, const uint16_t errorCod
     }
 
     if(sendEmergency){
+        
+        if(em->pErrorCallback != NULL) {
+            em->pErrorCallback(errorBit,errorCode,infoCode,OD_CANNodeID);
+        }
+        
         /* set error bit */
         if(errorBit){
             /* any error except NO_ERROR */
