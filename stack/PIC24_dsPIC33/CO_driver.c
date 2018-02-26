@@ -124,7 +124,7 @@ void CO_CANsetConfigurationMode(uint16_t CANbaseAddress){
     uint16_t C_CTRL1copy = CAN_REG(CANbaseAddress, C_CTRL1);
 
     /* set REQOP = 0x4 */
-    C_CTRL1copy &= 0xFCFF;
+    C_CTRL1copy &= 0xFCFF; //needs to be 
     C_CTRL1copy |= 0x0400;
     CAN_REG(CANbaseAddress, C_CTRL1) = C_CTRL1copy;
 
@@ -138,7 +138,7 @@ void CO_CANsetNormalMode(CO_CANmodule_t *CANmodule){
     uint16_t C_CTRL1copy = CAN_REG(CANmodule->CANbaseAddress, C_CTRL1);
 
     /* set REQOP = 0x0 */
-    C_CTRL1copy &= 0xF8FF;
+    C_CTRL1copy &= 0xF8FF; //needs to be 0xF0FF
     CAN_REG(CANmodule->CANbaseAddress, C_CTRL1) = C_CTRL1copy;
 
     /* while OPMODE != 0 */
@@ -244,7 +244,7 @@ CO_ReturnError_t CO_CANmodule_init(
         case 1000: i=7; break;
     }
 
-    if(CO_CANbitRateData[i].scale == 2)
+    if(CO_CANbitRateData[i].scale == 1)
         CAN_REG(CANbaseAddress, C_CTRL1) |= 0x0800;
 
     CAN_REG(CANbaseAddress, C_CFG1) = (CO_CANbitRateData[i].SJW - 1) << 6 |
