@@ -1,0 +1,528 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|Win32">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|Win32">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGUID>{F2BBFB8B-90DA-35FB-A689-B1A1EE66AC47}</ProjectGUID>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>nanomsg</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+    <PropertyGroup>
+      <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\Code\CANopenNode\nanomsgbuild\Debug\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">nanomsg.dir\Debug\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">nanomsg</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.dll</TargetExt>
+      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\Code\CANopenNode\nanomsgbuild\Release\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">nanomsg.dir\Release\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">nanomsg</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.dll</TargetExt>
+      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">D:\Code\CANopenNode\nanomsgbuild\MinSizeRel\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">nanomsg.dir\MinSizeRel\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">nanomsg</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">.dll</TargetExt>
+      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkIncremental>
+      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">true</GenerateManifest>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">D:\Code\CANopenNode\nanomsgbuild\RelWithDebInfo\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">nanomsg.dir\RelWithDebInfo\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">nanomsg</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">.dll</TargetExt>
+      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</LinkIncremental>
+      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</GenerateManifest>
+    </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsC</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;NN_HAVE_WINDOWS;_CRT_SECURE_NO_WARNINGS;_WIN32_WINNT=0x0600;NN_HAVE_CONDVAR=1;NN_MAX_SOCKETS=512;NN_USE_WINSOCK;NN_SHARED_LIB;CMAKE_INTDIR="Debug";nanomsg_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;NN_HAVE_WINDOWS;_CRT_SECURE_NO_WARNINGS;_WIN32_WINNT=0x0600;NN_HAVE_CONDVAR=1;NN_MAX_SOCKETS=512;NN_USE_WINSOCK;NN_SHARED_LIB;CMAKE_INTDIR=\"Debug\";nanomsg_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:X86 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;ws2_32.lib;mswsock.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>Debug</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/Code/CANopenNode/nanomsgbuild/Debug/nanomsg.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/Code/CANopenNode/nanomsgbuild/Debug/nanomsg.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version></Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsC</CompileAs>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NN_HAVE_WINDOWS;_CRT_SECURE_NO_WARNINGS;_WIN32_WINNT=0x0600;NN_HAVE_CONDVAR=1;NN_MAX_SOCKETS=512;NN_USE_WINSOCK;NN_SHARED_LIB;CMAKE_INTDIR="Release";nanomsg_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat></DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NN_HAVE_WINDOWS;_CRT_SECURE_NO_WARNINGS;_WIN32_WINNT=0x0600;NN_HAVE_CONDVAR=1;NN_MAX_SOCKETS=512;NN_USE_WINSOCK;NN_SHARED_LIB;CMAKE_INTDIR=\"Release\";nanomsg_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:X86 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;ws2_32.lib;mswsock.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>No</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/Code/CANopenNode/nanomsgbuild/Release/nanomsg.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/Code/CANopenNode/nanomsgbuild/Release/nanomsg.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version></Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>MinSizeRel/</AssemblerListingLocation>
+      <CompileAs>CompileAsC</CompileAs>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NN_HAVE_WINDOWS;_CRT_SECURE_NO_WARNINGS;_WIN32_WINNT=0x0600;NN_HAVE_CONDVAR=1;NN_MAX_SOCKETS=512;NN_USE_WINSOCK;NN_SHARED_LIB;CMAKE_INTDIR="MinSizeRel";nanomsg_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat></DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NN_HAVE_WINDOWS;_CRT_SECURE_NO_WARNINGS;_WIN32_WINNT=0x0600;NN_HAVE_CONDVAR=1;NN_MAX_SOCKETS=512;NN_USE_WINSOCK;NN_SHARED_LIB;CMAKE_INTDIR=\"MinSizeRel\";nanomsg_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:X86 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;ws2_32.lib;mswsock.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>No</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/Code/CANopenNode/nanomsgbuild/MinSizeRel/nanomsg.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/Code/CANopenNode/nanomsgbuild/MinSizeRel/nanomsg.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version></Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>RelWithDebInfo/</AssemblerListingLocation>
+      <CompileAs>CompileAsC</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NN_HAVE_WINDOWS;_CRT_SECURE_NO_WARNINGS;_WIN32_WINNT=0x0600;NN_HAVE_CONDVAR=1;NN_MAX_SOCKETS=512;NN_USE_WINSOCK;NN_SHARED_LIB;CMAKE_INTDIR="RelWithDebInfo";nanomsg_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NN_HAVE_WINDOWS;_CRT_SECURE_NO_WARNINGS;_WIN32_WINNT=0x0600;NN_HAVE_CONDVAR=1;NN_MAX_SOCKETS=512;NN_USE_WINSOCK;NN_SHARED_LIB;CMAKE_INTDIR=\"RelWithDebInfo\";nanomsg_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:X86 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;ws2_32.lib;mswsock.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>Debug</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/Code/CANopenNode/nanomsgbuild/RelWithDebInfo/nanomsg.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/Code/CANopenNode/nanomsgbuild/RelWithDebInfo/nanomsg.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version></Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\Code\CANopenNode\nanomsg\src\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule D:/Code/CANopenNode/nanomsg/src/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+"D:\Program Files\CMake\bin\cmake.exe" -HD:/Code/CANopenNode/nanomsg -BD:/Code/CANopenNode/nanomsgbuild --check-stamp-file D:\Code\CANopenNode\nanomsgbuild\src\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:/Code/CANopenNode/nanomsg/src/CMakeLists.txt;D:\Code\CANopenNode\nanomsg\src\CMakeLists.txt;D:\Code\CANopenNode\nanomsg\src\pkgconfig.in;D:\Code\CANopenNode\nanomsg\src\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\Code\CANopenNode\nanomsgbuild\src\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule D:/Code/CANopenNode/nanomsg/src/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+"D:\Program Files\CMake\bin\cmake.exe" -HD:/Code/CANopenNode/nanomsg -BD:/Code/CANopenNode/nanomsgbuild --check-stamp-file D:\Code\CANopenNode\nanomsgbuild\src\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:/Code/CANopenNode/nanomsg/src/CMakeLists.txt;D:\Code\CANopenNode\nanomsg\src\CMakeLists.txt;D:\Code\CANopenNode\nanomsg\src\pkgconfig.in;D:\Code\CANopenNode\nanomsg\src\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\Code\CANopenNode\nanomsgbuild\src\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule D:/Code/CANopenNode/nanomsg/src/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
+"D:\Program Files\CMake\bin\cmake.exe" -HD:/Code/CANopenNode/nanomsg -BD:/Code/CANopenNode/nanomsgbuild --check-stamp-file D:\Code\CANopenNode\nanomsgbuild\src\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">D:/Code/CANopenNode/nanomsg/src/CMakeLists.txt;D:\Code\CANopenNode\nanomsg\src\CMakeLists.txt;D:\Code\CANopenNode\nanomsg\src\pkgconfig.in;D:\Code\CANopenNode\nanomsg\src\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">D:\Code\CANopenNode\nanomsgbuild\src\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule D:/Code/CANopenNode/nanomsg/src/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
+"D:\Program Files\CMake\bin\cmake.exe" -HD:/Code/CANopenNode/nanomsg -BD:/Code/CANopenNode/nanomsgbuild --check-stamp-file D:\Code\CANopenNode\nanomsgbuild\src\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">D:/Code/CANopenNode/nanomsg/src/CMakeLists.txt;D:\Code\CANopenNode\nanomsg\src\CMakeLists.txt;D:\Code\CANopenNode\nanomsg\src\pkgconfig.in;D:\Code\CANopenNode\nanomsg\src\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">D:\Code\CANopenNode\nanomsgbuild\src\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\nn.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\inproc.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\ipc.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\tcp.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\ws.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\pair.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\pubsub.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\reqrep.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\pipeline.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\survey.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\bus.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\core\ep.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\core\global.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\core\sock.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\aio\ctx.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\aio\fsm.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\aio\pool.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\aio\timer.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\aio\timerset.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\aio\usock.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\aio\worker.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\utils\alloc.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\utils\atomic.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\utils\attr.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\utils\chunk.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\utils\chunkref.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\utils\clock.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\utils\closefd.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\utils\cont.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\utils\efd.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\utils\err.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\utils\fast.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\utils\fd.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\utils\hash.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\utils\list.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\utils\msg.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\utils\condvar.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\utils\mutex.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\utils\once.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\utils\queue.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\utils\random.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\utils\sem.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\utils\sleep.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\utils\strcasecmp.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\utils\strcasestr.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\utils\strncasecmp.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\utils\thread.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\utils\wire.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\devices\device.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\protocols\utils\dist.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\protocols\utils\excl.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\protocols\utils\fq.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\protocols\utils\lb.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\protocols\utils\priolist.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\protocols\bus\xbus.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\protocols\pipeline\xpull.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\protocols\pipeline\xpush.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\protocols\pair\xpair.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\protocols\pubsub\trie.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\protocols\pubsub\xpub.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\protocols\pubsub\xsub.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\protocols\reqrep\req.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\protocols\reqrep\rep.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\protocols\reqrep\task.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\protocols\reqrep\xrep.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\protocols\reqrep\xreq.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\protocols\survey\xrespondent.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\protocols\survey\xsurveyor.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\transports\utils\backoff.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\transports\utils\dns.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\transports\utils\dns_getaddrinfo.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\transports\utils\dns_getaddrinfo_a.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\transports\utils\iface.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\transports\utils\literal.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\transports\utils\port.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\transports\utils\streamhdr.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\transports\utils\base64.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\transports\inproc\binproc.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\transports\inproc\cinproc.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\transports\inproc\ins.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\transports\inproc\msgqueue.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\transports\inproc\sinproc.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\transports\ipc\aipc.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\transports\ipc\bipc.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\transports\ipc\cipc.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\transports\ipc\sipc.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\transports\tcp\atcp.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\transports\tcp\btcp.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\transports\tcp\ctcp.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\transports\tcp\stcp.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\transports\ws\aws.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\transports\ws\bws.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\transports\ws\cws.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\transports\ws\sws.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\transports\ws\ws_handshake.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\transports\ws\sha1.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\aio\usock_win.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\aio\worker_win.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\utils\thread_win.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\utils\win.h" />
+    <ClInclude Include="D:\Code\CANopenNode\nanomsg\src\utils\efd_win.h" />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\core\ep.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\core\global.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\core\pipe.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\core\poll.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\core\sock.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\core\sockbase.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\core\symbol.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\aio\ctx.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\aio\fsm.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\aio\pool.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\aio\timer.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\aio\timerset.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\aio\usock.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\aio\worker.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\utils\alloc.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\utils\atomic.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\utils\chunk.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\utils\chunkref.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\utils\clock.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\utils\closefd.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\utils\efd.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\utils\err.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\utils\hash.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\utils\list.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\utils\msg.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\utils\condvar.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\utils\mutex.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\utils\once.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\utils\queue.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\utils\random.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\utils\sem.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\utils\sleep.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\utils\strcasecmp.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\utils\strcasestr.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\utils\strncasecmp.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\utils\thread.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\utils\wire.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\devices\device.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\protocols\utils\dist.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\protocols\utils\excl.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\protocols\utils\fq.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\protocols\utils\lb.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\protocols\utils\priolist.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\protocols\bus\bus.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\protocols\bus\xbus.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\protocols\pipeline\push.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\protocols\pipeline\pull.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\protocols\pipeline\xpull.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\protocols\pipeline\xpush.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\protocols\pair\pair.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\protocols\pair\xpair.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\protocols\pubsub\pub.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\protocols\pubsub\sub.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\protocols\pubsub\trie.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\protocols\pubsub\xpub.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\protocols\pubsub\xsub.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\protocols\reqrep\req.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\protocols\reqrep\rep.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\protocols\reqrep\task.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\protocols\reqrep\xrep.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\protocols\reqrep\xreq.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\protocols\survey\respondent.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\protocols\survey\surveyor.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\protocols\survey\xrespondent.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\protocols\survey\xsurveyor.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\transports\utils\backoff.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\transports\utils\dns.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\transports\utils\iface.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\transports\utils\literal.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\transports\utils\port.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\transports\utils\streamhdr.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\transports\utils\base64.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\transports\inproc\binproc.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\transports\inproc\cinproc.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\transports\inproc\inproc.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\transports\inproc\ins.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\transports\inproc\msgqueue.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\transports\inproc\sinproc.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\transports\ipc\aipc.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\transports\ipc\bipc.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\transports\ipc\cipc.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\transports\ipc\ipc.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\transports\ipc\sipc.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\transports\tcp\atcp.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\transports\tcp\btcp.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\transports\tcp\ctcp.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\transports\tcp\stcp.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\transports\tcp\tcp.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\transports\ws\aws.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\transports\ws\bws.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\transports\ws\cws.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\transports\ws\sws.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\transports\ws\ws.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\transports\ws\ws_handshake.c"  />
+    <ClCompile Include="D:\Code\CANopenNode\nanomsg\src\transports\ws\sha1.c"  />
+    <None Include="D:\Code\CANopenNode\nanomsg\src\transports\utils\dns_getaddrinfo.inc" />
+    <None Include="D:\Code\CANopenNode\nanomsg\src\transports\utils\dns_getaddrinfo_a.inc" />
+    <None Include="D:\Code\CANopenNode\nanomsg\src\aio\usock_win.inc" />
+    <None Include="D:\Code\CANopenNode\nanomsg\src\aio\worker_win.inc" />
+    <None Include="D:\Code\CANopenNode\nanomsg\src\utils\thread_win.inc" />
+    <None Include="D:\Code\CANopenNode\nanomsg\src\utils\efd_win.inc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="D:/Code/CANopenNode/nanomsgbuild/ZERO_CHECK.vcxproj">
+      <Project>41A32469-9296-30D4-B455-5F2F6781A46D</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
