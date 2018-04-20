@@ -138,7 +138,7 @@ int main(const int argc, const char **argv) {
 		if (x == nodeid)
 			continue;
 
-		sprintf_s(bufsize, bufsize, "ipc://can_id%d", x);
+		sprintf_s(ipcbuf, bufsize, "ipc://can_id%d", x);
 		printf("Connecting to %s\n", ipcbuf);
 		assert(nn_connect(sock, ipcbuf) >= 0);
 	}
