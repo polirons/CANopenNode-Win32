@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CanOpenNodeWin32NanoMsg", "CanOpenNodeWin32NanoMsg\CanOpenNodeWin32NanoMsg.vcxproj", "{4590C114-AADF-4291-94CF-B61685429EBD}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nanomsg", "..\nanomsg\build\src\nanomsg.vcxproj", "{E6620D61-C17B-331E-A4FF-636830027866}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		MinSizeRel|x64 = MinSizeRel|x64
+		MinSizeRel|x86 = MinSizeRel|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+		RelWithDebInfo|x64 = RelWithDebInfo|x64
+		RelWithDebInfo|x86 = RelWithDebInfo|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4590C114-AADF-4291-94CF-B61685429EBD}.Debug|x64.ActiveCfg = Debug|x64
+		{4590C114-AADF-4291-94CF-B61685429EBD}.Debug|x64.Build.0 = Debug|x64
+		{4590C114-AADF-4291-94CF-B61685429EBD}.Debug|x86.ActiveCfg = Debug|Win32
+		{4590C114-AADF-4291-94CF-B61685429EBD}.Debug|x86.Build.0 = Debug|Win32
+		{4590C114-AADF-4291-94CF-B61685429EBD}.MinSizeRel|x64.ActiveCfg = Release|x64
+		{4590C114-AADF-4291-94CF-B61685429EBD}.MinSizeRel|x64.Build.0 = Release|x64
+		{4590C114-AADF-4291-94CF-B61685429EBD}.MinSizeRel|x86.ActiveCfg = Release|Win32
+		{4590C114-AADF-4291-94CF-B61685429EBD}.MinSizeRel|x86.Build.0 = Release|Win32
+		{4590C114-AADF-4291-94CF-B61685429EBD}.Release|x64.ActiveCfg = Release|x64
+		{4590C114-AADF-4291-94CF-B61685429EBD}.Release|x64.Build.0 = Release|x64
+		{4590C114-AADF-4291-94CF-B61685429EBD}.Release|x86.ActiveCfg = Release|Win32
+		{4590C114-AADF-4291-94CF-B61685429EBD}.Release|x86.Build.0 = Release|Win32
+		{4590C114-AADF-4291-94CF-B61685429EBD}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{4590C114-AADF-4291-94CF-B61685429EBD}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{4590C114-AADF-4291-94CF-B61685429EBD}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{4590C114-AADF-4291-94CF-B61685429EBD}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{E6620D61-C17B-331E-A4FF-636830027866}.Debug|x64.ActiveCfg = Debug|Win32
+		{E6620D61-C17B-331E-A4FF-636830027866}.Debug|x86.ActiveCfg = Debug|Win32
+		{E6620D61-C17B-331E-A4FF-636830027866}.Debug|x86.Build.0 = Debug|Win32
+		{E6620D61-C17B-331E-A4FF-636830027866}.MinSizeRel|x64.ActiveCfg = MinSizeRel|Win32
+		{E6620D61-C17B-331E-A4FF-636830027866}.MinSizeRel|x86.ActiveCfg = MinSizeRel|Win32
+		{E6620D61-C17B-331E-A4FF-636830027866}.MinSizeRel|x86.Build.0 = MinSizeRel|Win32
+		{E6620D61-C17B-331E-A4FF-636830027866}.Release|x64.ActiveCfg = Release|Win32
+		{E6620D61-C17B-331E-A4FF-636830027866}.Release|x86.ActiveCfg = Release|Win32
+		{E6620D61-C17B-331E-A4FF-636830027866}.Release|x86.Build.0 = Release|Win32
+		{E6620D61-C17B-331E-A4FF-636830027866}.RelWithDebInfo|x64.ActiveCfg = RelWithDebInfo|Win32
+		{E6620D61-C17B-331E-A4FF-636830027866}.RelWithDebInfo|x86.ActiveCfg = RelWithDebInfo|Win32
+		{E6620D61-C17B-331E-A4FF-636830027866}.RelWithDebInfo|x86.Build.0 = RelWithDebInfo|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5B39A202-4DF0-483D-856E-B8A5E50D0D8A}
+	EndGlobalSection
+EndGlobal
