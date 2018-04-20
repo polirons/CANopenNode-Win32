@@ -123,9 +123,6 @@ int main(const int argc, const char **argv) {
 	sock = nn_socket(AF_SP, NN_BUS);
 	assert(sock >= 0);
 
-
-	Sleep(1000);
-
 	//Bind that socket to an address that is can_id<nodeid>
 	//Every node requires one of these
 	char ipcbuf[bufsize];
@@ -133,8 +130,6 @@ int main(const int argc, const char **argv) {
 	printf("Binding to %s\n", ipcbuf);
 	assert(nn_bind(sock, ipcbuf) >= 0);
 
-	Sleep(1000);
-	
 	//now try to connect to every other possible node, all 127 of them
 	//but skip us
 	for (int x=1; x < 127; x++)
@@ -143,11 +138,8 @@ int main(const int argc, const char **argv) {
 			continue;
 
 		sprintf_s(ipcbuf, bufsize, "ipc://can_id%d", x);
-	//	printf("Connecting to %s\n", ipcbuf);
-		assert(nn_connect(sock, ipcbuf) >= 0);
 	}
 
-	Sleep(1000);
 	
 	//Normal canopennode start up below
 	
@@ -158,14 +150,9 @@ int main(const int argc, const char **argv) {
 	/* increase variable each startup. Variable is stored in EEPROM. */
 	OD_powerOnCounter++;
 
-	
-
 
 	while (reset != CO_RESET_APP) {
 
-
-
-	
 
 		/* CANopen communication reset - initialize CANopen objects *******************/
 		CO_ReturnError_t err;
@@ -183,17 +170,19 @@ int main(const int argc, const char **argv) {
 
 
 		/* Configure Timer interrupt function for execution every 1 millisecond */
+		HANDLE myqueue = CreateTimerQueue();
 
 		/* Configure Timer interrupt function for execution every 1 millisecond */
 		/* Not sure if this is the best type of timer to use */
 		/* The jitter on the timing is not great */
 		BOOL success = CreateTimerQueueTimer(
 			&m_timerHandle,
-			NULL,
+			myqueue,
 			TimerProc,
 			NULL,
-			0,
+			1,
 			1, //Period in ms
+			//WT_EXECUTEDEFAULT);
 			WT_EXECUTEINTIMERTHREAD);
 
 
@@ -210,7 +199,7 @@ int main(const int argc, const char **argv) {
 		count = 0;
 		while (reset == CO_RESET_NOT) {
 
-			Sleep(1);
+			Sleep(10);
 
 			/* loop for normal program execution ******************************************/
 			uint16_t timer1msCopy, timer1msDiff;
