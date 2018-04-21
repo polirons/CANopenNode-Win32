@@ -44,24 +44,11 @@
 * to do so, delete this exception statement from your version.
 */
 
-
-
-//#define NN_STATIC_LIB
 #include "windows.h"
 #include "CANopen.h"
-
 #include <assert.h>
-//#include <libc.h>
 #include <stdio.h>
-#include <nn.h>
-#include <bus.h>
-
 #include <stdint.h>
-
-#define packetdebug
-#define bufsize 50
-
-void RxCanPacket();
 
 #define TMR_TASK_INTERVAL   (1000)          /* Interval of tmrTask thread in microseconds */
 #define INCREMENT_1MS(var)  (var++)         /* Increment 1ms variable in tmrTask */
@@ -69,32 +56,9 @@ void RxCanPacket();
 void CALLBACK TimerProc(void* lpParametar,
 	BOOLEAN TimerOrWaitFired);
 
-
 /* Global variables and objects */
 volatile uint16_t   CO_timer1ms = 0U;   /* variable increments each millisecond */
 HANDLE m_timerHandle;
-int sock;
-
-int brokersock;
-
-CO_CANrxMsg_t canpacket;
-
-#define PACKED
-#pragma pack(push,1)
-typedef struct {
-	uint16_t cob_id;	/**< message's ID */
-	uint8_t rtr;		/**< remote transmission request. (0 if not rtr message, 1 if rtr message) */
-	uint8_t len;		/**< message's length (0 to 8) */
-	uint8_t data[8]; /**< message's datas */
-} Message;
-#pragma pack(pop)
-#undef PACKED
-
-
-int count;
-
-
-int nodeid = 1;
 
 /* main ***********************************************************************/
 
@@ -105,7 +69,9 @@ int main(const int argc, const char **argv) {
 
 	if (argc == 2)
 	{
+		int nodeid;
 		sscanf_s(argv[1], "%d", &nodeid);
+		CO_OD_ROM.CANNodeID = nodeid;
 	}
 	else
 	{
@@ -116,50 +82,21 @@ int main(const int argc, const char **argv) {
 
 	//Use the node id from the command line
 
-	printf("Starting on noide id %d\n", nodeid);
-	CO_OD_ROM.CANNodeID = nodeid;
-
-	//Create a nano msg socket.
-	sock = nn_socket(AF_SP, NN_BUS);
-	assert(sock >= 0);
-
-	//Bind that socket to an address that is can_id<nodeid>
-	//Every node requires one of these
-	char ipcbuf[bufsize];
-	sprintf_s(ipcbuf, bufsize, "ipc://can_id%d", nodeid);
-	printf("Binding to %s\n", ipcbuf);
-	assert(nn_bind(sock, ipcbuf) >= 0);
-
-	//now try to connect to every other possible node, all 127 of them
-	//but skip us
-	for (int x=1; x < 127; x++)
-	{
-		if (x == nodeid)
-			continue;
-
-		sprintf_s(ipcbuf, bufsize, "ipc://can_id%d", x);
-	}
-
+	printf("Starting on noide id %d\n", CO_OD_ROM.CANNodeID);
+	startnanomsg(CO_OD_ROM.CANNodeID);
 	
-	//Normal canopennode start up below
-	
-
 	/* initialize EEPROM */
-
 
 	/* increase variable each startup. Variable is stored in EEPROM. */
 	OD_powerOnCounter++;
 
-
 	while (reset != CO_RESET_APP) {
-
 
 		/* CANopen communication reset - initialize CANopen objects *******************/
 		CO_ReturnError_t err;
 		uint16_t timer1msPrevious;
 
 		/* disable CAN and CAN interrupts */
-
 
 		/* initialize CANopen */
 		err = CO_init(0/* CAN module address */, CO_OD_ROM.CANNodeID, 125 /* bit rate */);
@@ -185,9 +122,7 @@ int main(const int argc, const char **argv) {
 			//WT_EXECUTEDEFAULT);
 			WT_EXECUTEINTIMERTHREAD);
 
-
 		/* Configure CAN transmit and receive interrupt */
-
 
 		/* start CAN */
 		CO_CANsetNormalMode(CO->CANmodule[0]);
@@ -196,7 +131,6 @@ int main(const int argc, const char **argv) {
 		timer1msPrevious = CO_timer1ms;
 
 
-		count = 0;
 		while (reset == CO_RESET_NOT) {
 
 			Sleep(10);
@@ -235,7 +169,6 @@ int main(const int argc, const char **argv) {
 void CALLBACK TimerProc(void* lpParametar,
 	BOOLEAN TimerOrWaitFired) {
 
-	count++;
 	RxCanPacket();
 
 	/* sleep for interval */
@@ -270,94 +203,3 @@ void /* interrupt */ CO_CAN1InterruptHandler(void) {
 }
 
 
-void debugprintCanMessage(char * dir, Message * m)
-{
-#ifdef packetdebug
-	char buf[bufsize];
-
-	sprintf_s(buf, bufsize, "%s 0x%3x (%d) ",dir, m->cob_id, m->len);
-	char * bufpos = buf;
-	bufpos += strlen(dir)+11;
-
-	for (int p = 0; p < m->len; p++)
-	{
-		sprintf_s(bufpos, bufsize - (bufpos - buf), "0x%02x ", m->data[p]);
-		bufpos += 5;
-	}
-
-	sprintf_s(bufpos, bufsize - (bufpos - buf), "\r\n");
-
-
-	printf(buf);
-#endif
-
-}
-
-void WriteCanPacket(CO_CANtx_t * TxPacket)
-{
-
-	//printf("SEND TO BUS %x %x\n",TxPacket->ident, TxPacket->data[0]);
-	//int send = nn_send(sock, TxPacket, sizeof(CO_CANtx_t), 0);
-
-	Message m;
-
-	memset(&m, 0, sizeof(Message));
-
-	m.cob_id = TxPacket->ident & 0x0FFF; //0x1705
-	m.len = (TxPacket->ident >> 12);
-
-	for (int p = 0; p<m.len; p++)
-		m.data[p] = TxPacket->data[p];
-
-	m.rtr = 0;
-
-	debugprintCanMessage("TX: ",&m);
-
-	int send = nn_send(sock, &m, sizeof(Message), 0);
-
-}
-
-
-void RxCanPacket()
-{
-
-	Message m;
-
-	int recv = nn_recv(sock, &m, sizeof(Message), NN_DONTWAIT);
-	
-	if (recv >= 0)
-	{
-#ifdef packetdebug
-
-		memset(&canpacket, 0, sizeof(CO_CANtx_t));
-
-		canpacket.ident = m.cob_id;
-		canpacket.ident |= (m.len << 12);
-
-		for (int p = 0; p < m.len; p++)
-		{
-			canpacket.data[p] = m.data[0];
-		}
-
-		canpacket.DLC = 0;
-	
-		debugprintCanMessage("RX: ", &m);
-
-#endif
-
-		CO_CANinterrupt(CO->CANmodule[0]);
-	}
-
-}
-
-
-
-void SetCanFilter(uint32_t ident, uint32_t mask)
-{
-
-}
-
-int getNoSupportedFilters()
-{
-	return 0;
-}

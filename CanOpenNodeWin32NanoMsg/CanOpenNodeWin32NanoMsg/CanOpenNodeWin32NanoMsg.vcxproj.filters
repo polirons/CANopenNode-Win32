@@ -16,25 +16,19 @@
     <Filter Include="Source Files\Stack">
       <UniqueIdentifier>{fd96fc57-afb2-412c-84f3-630145ac6736}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Driver">
-      <UniqueIdentifier>{abebd0d2-d7e5-4deb-a7ec-2abd4a6bf25b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\OD">
-      <UniqueIdentifier>{e4b0725f-53b7-4a50-ab97-67908d1d1ae6}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\CANopen.c">
       <Filter>Source Files\Stack</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\stack\nanobus\CO_driver.c">
-      <Filter>Source Files\Driver</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\example\CO_OD.c">
-      <Filter>Source Files\OD</Filter>
-    </ClCompile>
     <ClCompile Include="main.c">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\stack\nanobus\CO_driver.c">
+      <Filter>Source Files\Stack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\example\CO_OD.c">
+      <Filter>Source Files\Stack</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -42,9 +36,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\stack\nanobus\CO_driver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\stack\nanobus\InterfaceBoundary.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

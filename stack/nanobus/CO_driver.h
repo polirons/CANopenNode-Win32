@@ -56,6 +56,11 @@
 #include <stdbool.h>        /* for 'true', 'false' */
 
 
+
+void startnanomsg(uint8_t nodeid);
+void RxCanPacket();
+
+
 /**
  * @defgroup CO_driver Driver
  * @ingroup CO_CANopen

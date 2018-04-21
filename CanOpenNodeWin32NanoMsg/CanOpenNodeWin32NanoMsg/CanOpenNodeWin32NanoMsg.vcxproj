@@ -160,7 +160,6 @@
   <ItemGroup>
     <ClInclude Include="..\..\CANopen.h" />
     <ClInclude Include="..\..\stack\nanobus\CO_driver.h" />
-    <ClInclude Include="..\..\stack\nanobus\InterfaceBoundary.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
