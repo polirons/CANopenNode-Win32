@@ -67,19 +67,6 @@ int main(const int argc, const char **argv) {
 
 	/* Configure microcontroller. */
 
-	if (argc == 2)
-	{
-		int nodeid;
-		sscanf_s(argv[1], "%d", &nodeid);
-		CO_OD_ROM.CANNodeID = nodeid;
-	}
-	else
-	{
-		
-		printf("Usage: CanOpenNodeWin32NanoMsg.exe <nodeid>\r\n");
-		return;
-	}
-
 	//Use the node id from the command line
 
 	printf("Starting on noide id %d\n", CO_OD_ROM.CANNodeID);
@@ -164,7 +151,6 @@ int main(const int argc, const char **argv) {
 }
 
 
-
 /* timer thread executes in constant intervals ********************************/
 void CALLBACK TimerProc(void* lpParametar,
 	BOOLEAN TimerOrWaitFired) {
@@ -197,7 +183,6 @@ void CALLBACK TimerProc(void* lpParametar,
 /* CAN interrupt function *****************************************************/
 void /* interrupt */ CO_CAN1InterruptHandler(void) {
 	CO_CANinterrupt(CO->CANmodule[0]);
-
 
 	/* clear interrupt flag */
 }
