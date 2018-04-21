@@ -20,32 +20,32 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{4590C114-AADF-4291-94CF-B61685429EBD}</ProjectGuid>
-    <RootNamespace>CanOpenNodeWin32NanoMsg</RootNamespace>
+    <ProjectGuid>{2DF3760D-4BEF-48F6-B3F6-8DBFAD25CD2C}</ProjectGuid>
+    <RootNamespace>libCanOpenNode</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -69,19 +69,19 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir)\..\;$(SolutionDir)\..\stack;$(SolutionDir)\..\example;$(SolutionDir)\..\nanomsg\src;$(SolutionDir)\..\stack\nanobus\;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)$(Configuration)\;$(SolutionDir)..\NanoMsgBuild\$(Configuration);$(LibraryPath)</LibraryPath>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)\..\;$(SolutionDir)\..\stack;$(SolutionDir)\..\example;$(SolutionDir)\..\nanomsg\src;$(SolutionDir)\..\stack\nanobus\;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)$(Configuration)\;$(SolutionDir)..\NanoMsgBuild\$(Configuration);$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Code\CANopenNode-Win32-NanoMsg\stack;C:\Code\CANopenNode-Win32-NanoMsg\stack\drvTemplate;$(SolutionDir)\..\..\;$(SolutionDir)\..\..\stack;$(SolutionDir)\..\..\stack\drvTemplate;$(IncludePath)</IncludePath>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)\..\nanomsg\src;$(SolutionDir)\..\;$(SolutionDir)\..\stack;$(SolutionDir)\..\example;$(SolutionDir)\..\stack\nanobus\</IncludePath>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(SolutionDir)..\;$(SolutionDir)..\stack;$(SolutionDir)..\stack\drvTemplate;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)\..\nanomsg\src;$(SolutionDir)\..\;$(SolutionDir)\..\stack;$(SolutionDir)\..\example;$(SolutionDir)\..\stack\nanobus\</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\;$(SolutionDir)..\stack;$(SolutionDir)..\stack\drvTemplate</IncludePath>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\;$(SolutionDir)..\stack;$(SolutionDir)..\stack\drvTemplate</IncludePath>
+    <TargetExt>.lib</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -90,16 +90,6 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
-    <Link>
-      <AdditionalDependencies>libCanOpenNode.lib;nanomsg.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-    <PostBuildEvent>
-      <Command>
-      </Command>
-    </PostBuildEvent>
-    <PreLinkEvent>
-      <Command>xcopy /Y $(SolutionDir)\..\nanomsgbuild\$(Configuration)\nanomsg.dll $(OutDir)</Command>
-    </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -121,15 +111,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>libCanOpenNode.lib;nanomsg.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-    <PostBuildEvent>
-      <Command>
-      </Command>
-    </PostBuildEvent>
-    <PreLinkEvent>
-      <Command>xcopy /Y $(SolutionDir)\..\nanomsgbuild\$(Configuration)\nanomsg.dll $(OutDir)</Command>
-    </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -146,15 +128,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\CANopen.c" />
-    <ClCompile Include="..\..\example\CO_OD.c" />
-    <ClCompile Include="..\..\stack\nanobus\CO_driver.c" />
-    <ClCompile Include="main.c" />
+    <ClCompile Include="..\..\stack\CO_Emergency.c" />
+    <ClCompile Include="..\..\stack\CO_HBconsumer.c" />
+    <ClCompile Include="..\..\stack\CO_NMT_Heartbeat.c" />
+    <ClCompile Include="..\..\stack\CO_PDO.c" />
+    <ClCompile Include="..\..\stack\CO_SDO.c" />
+    <ClCompile Include="..\..\stack\CO_SDOmaster.c" />
+    <ClCompile Include="..\..\stack\CO_SYNC.c" />
+    <ClCompile Include="..\..\stack\CO_trace.c" />
+    <ClCompile Include="..\..\stack\crc16-ccitt.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\CANopen.h" />
-    <ClInclude Include="..\..\stack\nanobus\CO_driver.h" />
-    <ClInclude Include="..\..\stack\nanobus\InterfaceBoundary.h" />
+    <ClInclude Include="..\..\stack\CO_Emergency.h" />
+    <ClInclude Include="..\..\stack\CO_HBconsumer.h" />
+    <ClInclude Include="..\..\stack\CO_NMT_Heartbeat.h" />
+    <ClInclude Include="..\..\stack\CO_PDO.h" />
+    <ClInclude Include="..\..\stack\CO_SDO.h" />
+    <ClInclude Include="..\..\stack\CO_SDOmaster.h" />
+    <ClInclude Include="..\..\stack\CO_SYNC.h" />
+    <ClInclude Include="..\..\stack\CO_trace.h" />
+    <ClInclude Include="..\..\stack\crc16-ccitt.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

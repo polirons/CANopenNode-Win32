@@ -24,33 +24,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\stack\CO_Emergency.c">
-      <Filter>Source Files\Stack</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\stack\CO_HBconsumer.c">
-      <Filter>Source Files\Stack</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\stack\CO_NMT_Heartbeat.c">
-      <Filter>Source Files\Stack</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\stack\CO_PDO.c">
-      <Filter>Source Files\Stack</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\stack\CO_SDO.c">
-      <Filter>Source Files\Stack</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\stack\CO_SDOmaster.c">
-      <Filter>Source Files\Stack</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\stack\CO_SYNC.c">
-      <Filter>Source Files\Stack</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\stack\CO_trace.c">
-      <Filter>Source Files\Stack</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\stack\crc16-ccitt.c">
-      <Filter>Source Files\Stack</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\CANopen.c">
       <Filter>Source Files\Stack</Filter>
     </ClCompile>
@@ -65,37 +38,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\example\CO_OD.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\CANopen.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\stack\CO_Emergency.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\stack\CO_HBconsumer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\stack\CO_NMT_Heartbeat.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\stack\CO_PDO.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\stack\CO_SDO.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\stack\CO_SDOmaster.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\stack\CO_SYNC.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\stack\CO_trace.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\stack\crc16-ccitt.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\stack\nanobus\CO_driver.h">
