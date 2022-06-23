@@ -49,7 +49,7 @@
 #include "CO_Emergency.h"
 #include "CO_NMT_Heartbeat.h"
 #include "CO_SYNC.h"
-#include "canopen.h"
+#include "CANopen.h"
 
 /*
  * Read received message from CAN module.

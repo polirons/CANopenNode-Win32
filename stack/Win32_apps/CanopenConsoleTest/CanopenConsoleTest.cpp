@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 #include "Windows.h"
-#include "CanOpen.h"
+#include "CANopen.h"
 #include "CO_OD.h"
 #include "SDO.h"
 #include "libCanOpenNode.h"
@@ -32,7 +32,7 @@ int main()
 {
 
 	registerCallback1ms(mscallback);
-	initCanOpenNodeStack("Canusb.dll","\\\\.\\COM3", "500k");
+	initCanOpenNodeStack("Canusb.dll","\\\\.\\COM3", "250k");
 
 	CO_OD_RAMp = (sCO_OD_RAM * ) getODRAM();
 

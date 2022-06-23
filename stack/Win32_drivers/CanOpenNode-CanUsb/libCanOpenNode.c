@@ -95,7 +95,7 @@ DWORD WINAPI CanOpen_run(LPVOID lpParam)
 
 
 		/* Configure callback functions */
-		CO_SYNC_initCallback(CO->SYNC, CANrx_lockCbSync);
+		//CO_SYNC_initCallback(CO->SYNC, CANrx_lockCbSync);
 
 		/* initialize variables */
 		timer1msPrevious = CO_timer1ms;

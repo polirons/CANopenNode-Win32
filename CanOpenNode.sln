@@ -1,17 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libCanOpenNode", "stack\Win32\libCanOpenNode.vcxproj", "{6A5C22F9-9811-4A8F-8531-F20BDEB46F29}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CanOpenNode-CanUsb", "stack\Win32_drivers\CanOpenNode-CanUsb\CanOpenNode-CanUsb.vcxproj", "{EC012197-98A3-4DC4-908A-28DD96DC6FAE}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CanOpenNode-Win32Loader", "stack\Win32_drivers\CanOpenNode-CanUsb\CanOpenNode-CanUsb.vcxproj", "{EC012197-98A3-4DC4-908A-28DD96DC6FAE}"
 	ProjectSection(ProjectDependencies) = postProject
 		{6A5C22F9-9811-4A8F-8531-F20BDEB46F29} = {6A5C22F9-9811-4A8F-8531-F20BDEB46F29}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CanopenConsoleTest", "stack\Win32_apps\CanopenConsoleTest\CanopenConsoleTest.vcxproj", "{F24CFFFD-C1EB-49FD-AD76-12DC294D78BE}"
 	ProjectSection(ProjectDependencies) = postProject
+		{55C48CD7-0110-4757-BAB9-B73A7BA37D40} = {55C48CD7-0110-4757-BAB9-B73A7BA37D40}
+		{6A5C22F9-9811-4A8F-8531-F20BDEB46F29} = {6A5C22F9-9811-4A8F-8531-F20BDEB46F29}
 		{EC012197-98A3-4DC4-908A-28DD96DC6FAE} = {EC012197-98A3-4DC4-908A-28DD96DC6FAE}
 	EndProjectSection
 EndProject
@@ -60,5 +62,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {944F06AA-79D1-4E1B-972C-DE5B0B0008A4}
 	EndGlobalSection
 EndGlobal

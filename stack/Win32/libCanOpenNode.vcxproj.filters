@@ -44,9 +44,6 @@
     <ClCompile Include="..\..\example\CO_OD.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\CO_NMTmaster.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\CO_Emergency.h">

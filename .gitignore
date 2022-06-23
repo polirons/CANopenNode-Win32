@@ -18,3 +18,5 @@ Release/
 /example/*.lnk
 /libCanOpenNode/ipch/CANOPENCONSOLETEST-8c180197/CANOPENCONSOLETEST-8408fea3.ipch
 /libCanOpenNode/libCanOpenNode/*.filters
+/.vs/
+*.vcxproj.user
